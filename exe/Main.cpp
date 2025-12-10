@@ -130,9 +130,12 @@ int main(int argc, char** argv)
     if (startAnim)
         groot->setAnimate(true);
 
+    msg_info("SofaGLFW") << "== glfwGUI.initVisual()...";
     glfwGUI.initVisual();
+    msg_info("SofaGLFW") << "== glfwGUI.initVisual() done";
 
     //Background
+    msg_info("SofaGLFW") << "== glfwGUI.setWindowBackgroundColor()...";
     sofa::component::setting::BackgroundSetting* background;
     groot->get(background, sofa::core::objectmodel::BaseContext::SearchRoot);
     if (background)
@@ -142,10 +145,13 @@ int main(int argc, char** argv)
         else
             glfwGUI.setWindowBackgroundImage(background->d_image.getFullPath());
     }
+    msg_info("SofaGLFW") << "== glfwGUI.setWindowBackgroundColor() done";
 
     // Run the main loop
     const auto currentTime = std::chrono::steady_clock::now();
+    msg_info("SofaGLFW") << "== glfwGUI.runLoop() ...";
     const auto currentNbIterations = glfwGUI.runLoop(targetNbIterations);
+    msg_info("SofaGLFW") << "== glfwGUI.runLoop() done";
 
     const auto totalTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - currentTime).count() / 1000.0;
 
