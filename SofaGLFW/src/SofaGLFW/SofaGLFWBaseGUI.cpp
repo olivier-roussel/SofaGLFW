@@ -463,16 +463,19 @@ void SofaGLFWBaseGUI::makeCurrentContext(GLFWwindow* glfwWindow)
 
 std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
 {
+    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- entering --";
     if (!this->groot)
     {
         msg_error("SofaGLFWBaseGUI") << "Cannot start main loop: root node is invalid";
         return 0;
     }
 
+    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 1 --";
     m_vparams = VisualParams::defaultInstance();
     m_viewPortWidth = m_vparams->viewport()[2];
     m_viewPortHeight = m_vparams->viewport()[3];
 
+    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 2 --";
     bool running = true;
     std::size_t currentNbIterations = 0;
     std::stringstream tmpStr;
@@ -481,6 +484,7 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
         SIMULATION_LOOP_SCOPE
 
         // Keep running
+        msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 3 --";
         runStep();
         sofa::type::vector<std::pair<GLFWwindow*, SofaGLFWWindow*>> closedWindows;
         
@@ -488,6 +492,7 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
         {
             if (glfwWindow && sofaGlfwWindow)
             {
+                msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4 --";
                 // while user did not request to close this window (i.e press escape), draw
                 if (!glfwWindowShouldClose(glfwWindow) && !m_guiEngine->isTerminated())
                 {
@@ -517,7 +522,9 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
             }
         }
 
+        msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 5 --";
         glfwPollEvents();
+        msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 6 --";
 
         // the engine must be terminated before the window
         if (s_numberOfActiveWindows == closedWindows.size())
@@ -526,6 +533,7 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
             m_guiEngine->terminate();
             m_guiEngine.reset();
         }
+        msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 7 --";
 
         for (auto& [glfwWindow, sofaGlfwWindow] : closedWindows)
         {
@@ -538,10 +546,12 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
                 s_mapWindows.erase(currentSofaWindow);
             }
         }
+        msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 8 --";
 
         currentNbIterations++;
         running = (targetNbIterations > 0) ? currentNbIterations < targetNbIterations : true;
     }
+    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 9 --";
 
     return currentNbIterations;
 }
