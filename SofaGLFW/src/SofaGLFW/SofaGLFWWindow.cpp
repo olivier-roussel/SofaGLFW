@@ -75,8 +75,8 @@ void SofaGLFWWindow::draw(simulation::NodeSPtr groot, core::visual::VisualParams
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     msg_info("SofaGLFWWindow") << "==== draw() -- 1 --";
-    if (!m_currentBackgroundFilename.empty())
-        drawBackgroundImage();
+    // if (!m_currentBackgroundFilename.empty())
+    //     drawBackgroundImage();
     msg_info("SofaGLFWWindow") << "==== draw() -- 2 --";
     
     glEnable(GL_LIGHTING);
@@ -177,6 +177,7 @@ void SofaGLFWWindow::setBackgroundImage(const std::string& filename)
 
 void SofaGLFWWindow::drawBackgroundImage()
 {
+    msg_info("SofaGLFWWindow") << "==== drawBackgroundImage() -- 0 --";
     if(!m_backgrounds.contains(m_currentBackgroundFilename))
         return;
 
@@ -186,15 +187,18 @@ void SofaGLFWWindow::drawBackgroundImage()
     
     const auto& background = m_backgrounds[m_currentBackgroundFilename];
 
+    msg_info("SofaGLFWWindow") << "==== drawBackgroundImage() -- 1 --";
     if(!background.image)
         return;
     
+    msg_info("SofaGLFWWindow") << "==== drawBackgroundImage() -- 2 --";
     const int imageWidth = background.image->getWidth();
     const int imageHeight = background.image->getHeight();
     
     int screenWidth = 0;
     int screenHeight = 0;
     
+    msg_info("SofaGLFWWindow") << "==== drawBackgroundImage() -- 3 --";
     screenWidth = m_currentCamera->d_widthViewport.getValue();
     screenHeight = m_currentCamera->d_heightViewport.getValue();
         
@@ -208,6 +212,7 @@ void SofaGLFWWindow::drawBackgroundImage()
     glPushMatrix();
     glLoadIdentity();
 
+    msg_info("SofaGLFWWindow") << "==== drawBackgroundImage() -- 4 --";
     background.texture->bind();
 
     const double coordWidth = int(screenWidth / imageWidth) + 1;
@@ -231,6 +236,7 @@ void SofaGLFWWindow::drawBackgroundImage()
     glDisable(GL_TEXTURE_2D);
     
     glPopAttrib();
+    msg_info("SofaGLFWWindow") << "==== drawBackgroundImage() -- 5 --";
 }
 
 void SofaGLFWWindow::setCamera(component::visual::BaseCamera::SPtr newCamera)
