@@ -502,6 +502,8 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
                     
                     m_guiEngine->beforeDraw(glfwWindow);
                     msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4c --";
+                    msg_info("SofaGLFWBaseGUI") << "=== sofaGlfwWindow = " << sofaGlfwWindow;
+                    msg_info("SofaGLFWBaseGUI") << "=== this->groot = " << this->groot;
 
                     sofaGlfwWindow->draw(this->groot, m_vparams);
                     msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4d --";
