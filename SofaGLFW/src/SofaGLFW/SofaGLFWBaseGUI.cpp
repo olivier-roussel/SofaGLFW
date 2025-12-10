@@ -496,26 +496,39 @@ std::size_t SofaGLFWBaseGUI::runLoop(std::size_t targetNbIterations)
                 // while user did not request to close this window (i.e press escape), draw
                 if (!glfwWindowShouldClose(glfwWindow) && !m_guiEngine->isTerminated())
                 {
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4a --";
                     makeCurrentContext(glfwWindow);
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4b --";
                     
                     m_guiEngine->beforeDraw(glfwWindow);
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4c --";
+
                     sofaGlfwWindow->draw(this->groot, m_vparams);
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4d --";
 
                     drawSelection(m_vparams);
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4e --";
 
                     m_guiEngine->afterDraw();
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4f --";
 
                     m_guiEngine->startFrame(this);
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4g --";
+
                     m_guiEngine->endFrame();
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4h --";
 
                     glfwSwapBuffers(glfwWindow);
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4i --";
 
 
                     m_viewPortHeight = m_vparams->viewport()[3];
                     m_viewPortWidth = m_vparams->viewport()[2];
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4j --";
                 }
                 else
                 {
+                    msg_info("SofaGLFWBaseGUI") << "=== runLoop() -- 4 ALT --";
                     // otherwise close this window
                     closedWindows.emplace_back(glfwWindow, sofaGlfwWindow);
                 }
