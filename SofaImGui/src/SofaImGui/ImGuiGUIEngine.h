@@ -29,7 +29,6 @@
 #include "guis/AdditionalGUIRegistry.h"
 #include "windows/WindowState.h"
 #include <SimpleIni.h>
-#include <imgui.h>
 #include <sofa/simulation/Node.h>
 
 using windows::WindowState;
@@ -74,7 +73,9 @@ protected:
     bool isMouseOnViewport { false };
     CSimpleIniA ini;
     void loadFile(sofaglfw::SofaGLFWBaseGUI* baseGUI, sofa::core::sptr<sofa::simulation::Node>& groot, std::string filePathName, bool reload = false);
-    void resetView(ImGuiID dockspace_id, const char *windowNameSceneGraph, const char *windowNameLog, const char *windowNameViewport) ;
+    
+    using _ImGuiID = unsigned int;
+    void resetView(_ImGuiID dockspace_id, const char *windowNameSceneGraph, const char *windowNameLog, const char *windowNameViewport) ;
 
     // WindowState members
     windows::WindowState winManagerProfiler;
