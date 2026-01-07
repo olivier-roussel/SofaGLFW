@@ -28,7 +28,6 @@
 
 #include "guis/AdditionalGUIRegistry.h"
 #include "windows/WindowState.h"
-#include <SimpleIni.h>
 #include <sofa/simulation/Node.h>
 
 using windows::WindowState;
@@ -49,7 +48,7 @@ class ImGuiGUIEngine : public sofaglfw::BaseGUIEngine
 public:
 
     ImGuiGUIEngine() ;
-    ~ImGuiGUIEngine() = default;
+    ~ImGuiGUIEngine();
 
     void init() override;
     void initBackend(GLFWwindow*) override;
@@ -71,7 +70,10 @@ protected:
     std::pair<unsigned int, unsigned int> m_currentFBOSize;
     std::pair<float, float> m_viewportWindowSize;
     bool isMouseOnViewport { false };
-    CSimpleIniA ini;
+
+    struct Settings;
+    std::unique_ptr<Settings> settings;
+
     void loadFile(sofaglfw::SofaGLFWBaseGUI* baseGUI, sofa::core::sptr<sofa::simulation::Node>& groot, std::string filePathName, bool reload = false);
     
     using _ImGuiID = unsigned int;

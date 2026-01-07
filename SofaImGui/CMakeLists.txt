@@ -99,7 +99,6 @@ set(HEADER_FILES
     ${SOFAIMGUI_SOURCE_DIR}/widgets/LinearSpringWidget.h
     ${SOFAIMGUI_SOURCE_DIR}/widgets/MaterialWidget.h
     ${SOFAIMGUI_SOURCE_DIR}/widgets/ScalarWidget.h
-    ${SOFAIMGUI_SOURCE_DIR}/windows/Performances.h
     ${SOFAIMGUI_SOURCE_DIR}/windows/Log.h
     ${SOFAIMGUI_SOURCE_DIR}/windows/MouseManager.h
     ${SOFAIMGUI_SOURCE_DIR}/windows/Profiler.h
@@ -107,8 +106,6 @@ set(HEADER_FILES
     ${SOFAIMGUI_SOURCE_DIR}/windows/DisplayFlags.h
     ${SOFAIMGUI_SOURCE_DIR}/windows/Plugins.h
     ${SOFAIMGUI_SOURCE_DIR}/windows/Components.h
-    ${SOFAIMGUI_SOURCE_DIR}/windows/Settings.h
-    ${SOFAIMGUI_SOURCE_DIR}/windows/ViewPort.h
     ${SOFAIMGUI_SOURCE_DIR}/AppIniFile.h
     ${SOFAIMGUI_SOURCE_DIR}/windows/WindowState.h
     ${SOFAIMGUI_SOURCE_DIR}/guis/BaseAdditionalGUI.h
@@ -148,7 +145,7 @@ add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES} ${IMGUI_SOURC
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${IMGUI_SOURCE_DIR}>")
 target_link_libraries(${PROJECT_NAME} PUBLIC SofaGLFW Sofa.GL.Component.Rendering3D ${CMAKE_DL_LIBS})
 target_link_libraries(${PROJECT_NAME} PRIVATE nfd)
-target_link_libraries(${PROJECT_NAME} PUBLIC SimpleIni::SimpleIni)
+target_link_libraries(${PROJECT_NAME} PRIVATE SimpleIni::SimpleIni)
 
 # setup the same API exports for imgui
 target_compile_definitions(${PROJECT_NAME} PUBLIC IMGUI_API=SOFAIMGUI_API)
